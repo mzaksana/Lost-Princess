@@ -1,7 +1,5 @@
 package sprites;
 
-import java.awt.*;
-
 public abstract class Sprite {
     public abstract void moveLf();
     public abstract void moveRg();
