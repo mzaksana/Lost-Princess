@@ -8,6 +8,8 @@ public class Human extends Sprite {
 
     private Rectangle body;
     private Rectangle head;
+
+
     //    color object
     private Color color;
 
@@ -131,6 +133,14 @@ public class Human extends Sprite {
 
     public void setNav(int nav) {
         this.nav = nav;
+    }
+
+    public Color getColor() {
+        return color;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
     }
 
 }
