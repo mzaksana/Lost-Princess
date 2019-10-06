@@ -1,5 +1,5 @@
 package muzzle;
-import sprites.Mouse;
+import sprites.Human;
 
 import java.awt.*;
 import javax.swing.JPanel;
@@ -13,7 +13,7 @@ public class Muzzle extends JPanel{
     private int[][] style;
     private int sizeArr;
 
-    public Mouse mouse;
+    public Human human;
 
     public Muzzle(int dimen){
         Random rand = new Random();
@@ -73,10 +73,10 @@ public class Muzzle extends JPanel{
             }r++;
         }
         g2d.setColor(Color.RED);
-        mouse.spawn();
-        fillRectangle(g2d,mouse.getBody());
+        human.spawn();
+        fillRectangle(g2d, human.getBody());
         g2d.setColor(Color.BLACK);
-        fillRectangle(g2d,mouse.getHead());
+        fillRectangle(g2d, human.getHead());
     }
 
     private void fillRectangle(Graphics2D g2d,Rectangle rectangle){
@@ -99,11 +99,11 @@ public class Muzzle extends JPanel{
         this.sizeArr = sizeArr;
     }
 
-    public Mouse getMouse() {
-        return mouse;
+    public Human getHuman() {
+        return human;
     }
 
-    public void setMouse(Mouse mouse) {
-        this.mouse = mouse;
+    public void setHuman(Human human) {
+        this.human = human;
     }
 }
