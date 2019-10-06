@@ -4,7 +4,7 @@ import muzzle.Muzzle;
 
 import java.awt.*;
 
-public class Mouse extends Sprite {
+public class Human extends Sprite {
 
     private Rectangle body;
     private Rectangle head;
@@ -21,7 +21,7 @@ public class Mouse extends Sprite {
 
     private Muzzle map;
 
-    public Mouse(Color color,int nav) {
+    public Human(Color color, int nav) {
         this.color = color;
         this.nav = nav;
     }
@@ -119,8 +119,11 @@ public class Mouse extends Sprite {
         }
     }
 
-    public boolean isNextNotWall(int x,int y){
-        return this.map.getStyle()[x][y] == 1;
+    private boolean isNextNotWall(int x, int y){
+        if ((x>=0 && x <= this.map.getStyle().length )&& (y >=0 && y <= this.map.getStyle()[0].length)) {
+            return this.map.getStyle()[x][y] == 1;
+        }
+        return false;
     }
     public int getNav() {
         return nav;
