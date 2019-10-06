@@ -3,24 +3,22 @@ import sprites.Mouse;
 
 import java.awt.*;
 import javax.swing.JPanel;
-import java.awt.geom.AffineTransform;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Random;
-import java.util.concurrent.TimeUnit;
 
 public class Muzzle extends JPanel{
-    private int style[][];
-    private int size;
+    private int[][] style;
+    private int sizeArr;
 
-    Mouse mouse;
+    public Mouse mouse;
 
     public Muzzle(int dimen){
         Random rand = new Random();
-        size=dimen-100;
-        int d=(size+25)/25;
+        sizeArr =dimen-100;
+        int d=(sizeArr +25)/25;
         this.style = new int[d+1][d+1];
 
         for (int i = 0; i < d; i++) {
@@ -30,11 +28,9 @@ public class Muzzle extends JPanel{
             }
             System.out.println();
         }
-        makeSprites();
     }
 
     public Muzzle(String path){
-        StringBuilder sb = new StringBuilder();
         try (BufferedReader br = Files.newBufferedReader(Paths.get(path))) {
             // read line by line
             String line;
@@ -56,14 +52,13 @@ public class Muzzle extends JPanel{
         } catch (IOException e) {
             System.err.format("IOException: %s%n", e);
         }
-        makeSprites();
     }
 
     public void paint(Graphics g){
         super.paint(g);
 
         Graphics2D g2d = (Graphics2D) g;
-        int r=0,c=0;
+        int r=0,c;
         for(int i = 50; i <= 625; i+=25){
             c=0;
             for(int j = 50; j <= 625; j+=25){
@@ -78,34 +73,37 @@ public class Muzzle extends JPanel{
             }r++;
         }
         g2d.setColor(Color.RED);
-
-
-        Rectangle a = new Rectangle(52 + this.mouse.getX() * 25, 52 + this.mouse.getY() * 25, 21, 21);
-        fillRectangle(g2d,a);
-        mouse.setX(100);
-        mouse.setY(100);
-        repaint();
-
-//        fillRectangle(g2d, a);
-//        g2d.fillRect(52 + this.mouse.getX() * 25, 52+ this.mouse.getY() * 25, 21, 21);
+        mouse.spawn();
+        fillRectangle(g2d,mouse.getBody());
+        g2d.setColor(Color.BLACK);
+        fillRectangle(g2d,mouse.getHead());
     }
 
     private void fillRectangle(Graphics2D g2d,Rectangle rectangle){
         g2d.fillRect(rectangle.x,rectangle.y,rectangle.width,rectangle.height);
     }
-    private void makeSprites(){
-        Random rand = new Random();
 
-        mouse = new Mouse(Color.RED, 1);
-        int x,y;
-        while (true) {
-            x = rand.nextInt(26);
-            y = rand.nextInt(26);
-            if(this.style[x][y]==1){
-                System.out.println(this.style[x][y]);
-                break;
-            }
-        }
-        mouse.setPosition(0,0);
+    public int[][] getStyle() {
+        return style;
+    }
+
+    public void setStyle(int[][] style) {
+        this.style = style;
+    }
+
+    public int getSizeArr() {
+        return sizeArr;
+    }
+
+    public void setSizeArr(int sizeArr) {
+        this.sizeArr = sizeArr;
+    }
+
+    public Mouse getMouse() {
+        return mouse;
+    }
+
+    public void setMouse(Mouse mouse) {
+        this.mouse = mouse;
     }
 }
