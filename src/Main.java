@@ -9,13 +9,19 @@ import java.util.Random;
 
 public class Main extends JFrame implements KeyListener{
     Muzzle muzzle;
-    Human human;
+    Human knight;
+    Human princess;
+
+
     public Main(){
         this.muzzle = new Muzzle("/home/mza/Documents/Pro/LostPrincess/muzzle_style/style1.txt");
         initSprites();
 
-        this.muzzle.setHuman(this.human);
-        this.human.setMuzzle(this.muzzle);
+        this.muzzle.setKnight(this.knight);
+        this.muzzle.setPrincess(this.princess);
+        this.knight.setMuzzle(this.muzzle);
+        this.princess.setMuzzle(this.muzzle);
+
         addKeyListener(this);
     }
     public static void main(String[] args) throws InterruptedException {
@@ -32,21 +38,29 @@ public class Main extends JFrame implements KeyListener{
 
 
     public void move(int nav) {
-        human.setPosition(human.getX()+1, human.getY()+1);
-        human.setNav(nav);
+        knight.setPosition(knight.getX()+1, knight.getY()+1);
+        knight.setNav(nav);
         repaint();
     }
 
     private void initSprites(){
         Random rand = new Random();
-        human = new Human(Color.RED, 4);
+        knight = new Human(Color.RED, 4);
+        princess = new Human(Color.BLUE, 4);
         int x,y;
         do {
             x = rand.nextInt(26);
             y = rand.nextInt(26);
         } while (muzzle.getStyle()[x][y] != 1);
-        System.out.println("post " +x+" "+y);
-        human.setPosition(x,y);
+        System.out.println("knight " +x+" "+y);
+        knight.setPosition(x,y);
+
+        do {
+            x = rand.nextInt(26);
+            y = rand.nextInt(26);
+        } while (muzzle.getStyle()[x][y] != 1 && (x!=knight.getX() && y!=knight.getY()));
+        System.out.println("princess " +x+" "+y);
+        princess.setPosition(x,y);
     }
 
     @Override
@@ -58,16 +72,16 @@ public class Main extends JFrame implements KeyListener{
     public void keyPressed(KeyEvent keyEvent) {
         switch (keyEvent.getKeyCode()) {
             case 37:
-                human.moveLf();
+                knight.moveLf();
                 break;
             case 38:
-                human.moveUp();
+                knight.moveUp();
                 break;
             case 39:
-                human.moveRg();
+                knight.moveRg();
                 break;
             case 40:
-                human.moveDw();
+                knight.moveDw();
                 break;
         }
         repaint();
