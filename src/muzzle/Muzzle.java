@@ -13,7 +13,8 @@ public class Muzzle extends JPanel{
     private int[][] style;
     private int sizeArr;
 
-    public Human human;
+    private Human knight;
+    private Human princess;
 
     public Muzzle(int dimen){
         Random rand = new Random();
@@ -72,11 +73,19 @@ public class Muzzle extends JPanel{
                 g2d.fillRect(i, j, 25, 25);
             }r++;
         }
-        g2d.setColor(Color.RED);
-        human.spawn();
-        fillRectangle(g2d, human.getBody());
+
+        knight.spawn();
+        g2d.setColor(knight.getColor());
+        fillRectangle(g2d, knight.getBody());
         g2d.setColor(Color.BLACK);
-        fillRectangle(g2d, human.getHead());
+        fillRectangle(g2d, knight.getHead());
+
+        princess.spawn();
+        g2d.setColor(princess.getColor());
+        fillRectangle(g2d, princess.getBody());
+        g2d.setColor(Color.BLACK);
+        fillRectangle(g2d, princess.getHead());
+
     }
 
     private void fillRectangle(Graphics2D g2d,Rectangle rectangle){
@@ -99,11 +108,19 @@ public class Muzzle extends JPanel{
         this.sizeArr = sizeArr;
     }
 
-    public Human getHuman() {
-        return human;
+    public Human getKnight() {
+        return knight;
     }
 
-    public void setHuman(Human human) {
-        this.human = human;
+    public void setKnight(Human knight) {
+        this.knight = knight;
+    }
+
+    public Human getPrincess() {
+        return princess;
+    }
+
+    public void setPrincess(Human princess) {
+        this.princess = princess;
     }
 }
