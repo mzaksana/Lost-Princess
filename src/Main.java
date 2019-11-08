@@ -1,4 +1,5 @@
 import muzzle.Muzzle;
+import panel.ZPanel;
 import sprites.Human;
 
 import javax.swing.*;
@@ -15,7 +16,7 @@ public class Main extends JFrame implements KeyListener {
     Human princess;
     boolean play;
     public Main() {
-        this.muzzle = new Muzzle("/home/mza/Rains/Pro/LostPrincess/muzzle_style/style0.txt");
+        this.muzzle = new Muzzle("/home/mza/Rains/Pro/LostPrincess/muzzle_style/mzastyle.txt");
         this.info = new ZPanel();
         initSprites();
 
@@ -32,7 +33,7 @@ public class Main extends JFrame implements KeyListener {
 //      just for now
         final int size = 700;
 
-        main.setSize(size + 550, size);
+        main.setSize(size + 650, size+20);
         main.setLayout(null);
         main.setTitle("Lost Princess");
         // Mengatur frame agar tidak dapat di resize
@@ -43,21 +44,23 @@ public class Main extends JFrame implements KeyListener {
         main.setVisible(true);
 
         main.getContentPane().add(main.muzzle);
-        main.muzzle.setBounds(0, 0, 700, 700);
+        main.muzzle.setBounds(0, 0, 650, 700);
 //
         main.getContentPane().add(main.info);
-        main.info.setBounds(620,50,600,600);
+        main.info.setBounds(650,7,700,700);
         main.info.setData(main.knight.getBrain());
+        main.knight.setZPanel(main.info);
         Random rand = new Random();
-//        int a = 100;
+        Thread inf = new Thread(main.info);
+        inf.start();
         do {
             try {
-                Thread.sleep(1250);
+                Thread.sleep(750);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
             main.moving();
-            main.info.setData(main.knight.getBrain());
+
         } while (main.play);
     }
 
@@ -71,8 +74,9 @@ public class Main extends JFrame implements KeyListener {
             y = rand.nextInt(24);
         } while (muzzle.getStyle()[x][y] != 1);
         System.out.println("knight " + x + " " + y);
-        System.out.println(muzzle.getStyle()[x][y]);
-        knight.setPosition(8, 13);
+//        System.out.println(muzzle.getStyle()[x][y]);
+//        knight.setPosition(0, 2);
+        knight.setPosition(x, y);
         int u, i;
         do {
             u = rand.nextInt(24);
@@ -80,7 +84,8 @@ public class Main extends JFrame implements KeyListener {
         } while (muzzle.getStyle()[u][i] != 1 || (u == knight.getX() && i == knight.getY()));
         System.out.println("princess " + u + " " + i);
         System.out.println(muzzle.getStyle()[u][i]);
-        princess.setPosition(12, 13);
+//        princess.setPosition(0, 20);
+        princess.setPosition(u,i);
         knight.spawn();
         princess.spawn();
         System.out.println("map");
@@ -109,8 +114,12 @@ public class Main extends JFrame implements KeyListener {
 
     public void gameEnd() {
         this.play=false;
-        this.info.setMessage("Happy Ending ..");
+        this.info.cancel("Message : Happy Ending ..");
         System.out.println("Happy Ending ..");
+    }
+
+    public ZPanel getInfo() {
+        return info;
     }
 
     @Override
