@@ -1,8 +1,9 @@
 package sprites;
 
-public abstract class Sprite {
-    public abstract void moveLf();
-    public abstract void moveRg();
-    public abstract void moveUp();
-    public abstract void moveDw();
+public interface Sprite {
+    void moving();
+    boolean moveLf();
+    boolean moveRg();
+    boolean moveUp();
+    boolean moveDw();
 }
