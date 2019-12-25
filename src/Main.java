@@ -16,7 +16,7 @@ public class Main extends JFrame implements KeyListener {
     Human princess;
     boolean play;
     public Main() {
-        this.muzzle = new Muzzle("/home/mza/Rains/Pro/LostPrincess/muzzle_style/mzastyle.txt");
+        this.muzzle = new Muzzle("/home/mza/Rains/Pro/LostPrincess/muzzle_style/style0.txt");
         this.info = new ZPanel();
         initSprites();
 
